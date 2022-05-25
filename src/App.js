@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import butcherPig from './assets/butcherPig.jpeg'
+import farm from './assets/farm.jpg'
 
 class App extends Component{
   constructor(props){
@@ -45,39 +46,60 @@ class App extends Component{
       let firstVowelIndex = currentWord.search(/[aeiou]/i)
       //add 2 to qu index before using substring, because .search will return the index of the start of the pattern
       let quIndex = currentWord.search(/qu/i)
+            
+
+      // console.log("y index:", yIndex)
+      // console.log("first vowel index:", firstVowelIndex)
+      // console.log("qu index:", quIndex)
+      // console.log("incorrect:", incorrectIndex)
       
 
-      console.log("y index:", yIndex)
-      console.log("first vowel index:", firstVowelIndex)
-      console.log("qu index:", quIndex)
-           
+     
+
+      //Check for special qu case first
      if(quIndex !== -1){
       // First idea hella ugly
-
-      //  let quSplit = currentWord.split(/(qu)/i)
-      //  console.log("quArray:", quSplit)
-      //  let quArr = []
-      //  quArr.push(quSplit.shift())
-      //  quArr.push(quSplit.shift())
-      //  console.log("splitArr:", quArr)
-      //  console.log("concat:", quSplit.toString() + quArr.join("")+"ay")
+        //  let quSplit = currentWord.split(/(qu)/i)
+        //  console.log("quArray:", quSplit)
+        //  let quArr = []
+        //  quArr.push(quSplit.shift())
+        //  quArr.push(quSplit.shift())
+        //  console.log("splitArr:", quArr)
+        //  console.log("concat:", quSplit.toString() + quArr.join("")+"ay")
       
-      // Sistine Chapel (before restoration)
-      currentWord = currentWord.substring(quIndex+2)+currentWord.substring(0,quIndex+2)+"ay"    
+            currentWord = currentWord.substring(quIndex+2)+currentWord.substring(0,quIndex+2)+"ay"    
      } else if (yIndex !== 0 && yIndex > 0) {
-       currentWord = currentWord.substring(yIndex)+currentWord.substring(0,yIndex)+"ay"
+        //Keep track of where "y" is. Because if "y" appears first it is treated as a consonant and if it appears later on, it counts as a vowel. Using the index of where the "y" appears, we can use substring to manipulate our string.
+        currentWord = currentWord.substring(yIndex)+currentWord.substring(0,yIndex)+"ay"
      } else if (firstVowelIndex === 0) {
-      currentWord = currentWord + "way"
+        //This conditional checks to see if a vowel appears first and simply concats "way"
+        currentWord = currentWord + "way"
      } else {
-       currentWord = currentWord.substring(firstVowelIndex)+currentWord.substring(0,firstVowelIndex)+"ay"
+        //Any other condition would mean that the vowel appears in the middle of the string with no other special conditions and the 
+        currentWord = currentWord.substring(firstVowelIndex)+currentWord.substring(0,firstVowelIndex)+"ay"
      } 
 
-     let punctIndex = currentWord.search(/[.,:!?$%*#"';`@-]/)
+     //Once we have completed moving the parts around to create the pig latin patter, we check to see if there is punctuation.
+     let punctIndex = currentWord.search(/[.,:!?"';`]/)
      console.log("punctIndex:", punctIndex)
 
      if (punctIndex !== -1){
-       currentWord = currentWord.substring(0, punctIndex)+currentWord.substring(punctIndex + 1) + currentWord.substring(punctIndex, punctIndex+1)
+        currentWord = currentWord.substring(0, punctIndex)+currentWord.substring(punctIndex + 1) + currentWord.substring(punctIndex, punctIndex+1)
      }
+
+     let capitalCheck = currentWord.search(/[A-Z]/)
+     console.log("cap:", capitalCheck)
+     if (capitalCheck !== -1){
+       currentWord = currentWord[0].toUpperCase() + currentWord.substring(1).toLowerCase()
+     }
+
+     
+     let incorrectIndex = currentWord.search(/[^a-z][^.,:!?"';`]/i)
+     if(incorrectIndex !== -1) {
+      currentWord = "TRY-AGAIN"
+    }
+
+
         
       
       // Remember: console.log is your friend :)
@@ -124,6 +146,7 @@ class App extends Component{
     return (
       <>
         <h1>Pig Latin Translator</h1>
+        <h2>"Igpay Atinlay Anslatortray"</h2>
         <img
           src={butcherPig}
           alt="pig with butcher cut names in pig latin"
@@ -132,7 +155,7 @@ class App extends Component{
         <div className="inputArea">
           <h4>Enter phrase to be translated:</h4>
           {/* user input field - every DOM event that happens in the input will call the handleChange method and update state */}
-          <input
+          <input 
             type="text"
             className="userInput"
             onChange={this.handleInput}
@@ -143,7 +166,7 @@ class App extends Component{
           <button onClick={this.setUpPreventDefault}>Submit</button>
           <button onClick={this.restartGame}>Clear</button>
         </div>
-        <p>{this.state.phraseTranslated}</p>
+        <p className = "translate">{this.state.phraseTranslated}</p>
         <footer>Coded by ~Don and Collin~</footer>
       </>
     )

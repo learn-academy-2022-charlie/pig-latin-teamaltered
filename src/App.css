@@ -1,11 +1,13 @@
 body {
   margin: 1rem;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Almendra Display', cursive;
   text-align: center;
+  background: url(./assets/farm.jpg)
+  
 }
 
 h1 {
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 button {
@@ -26,7 +28,7 @@ footer {
   border-radius: .5rem;
   font-size: 1rem;
   height: 5rem;
-  width: 20rem;
+  width: 30rem;
   text-align: center;
 }
 
@@ -35,6 +37,11 @@ footer {
   color: #fff;
   border-radius: .5rem;
   padding: 1rem;
+}
+
+.translate {
+  font-size: 2rem;
+  border: black;
 }
 
 @media only screen and (max-width: 650px) {
