@@ -45,6 +45,7 @@ class App extends Component{
       let firstVowelIndex = currentWord.search(/[aeiou]/i)
       //add 2 to qu index before using substring, because .search will return the index of the start of the pattern
       let quIndex = currentWord.search(/qu/i)
+      
 
       console.log("y index:", yIndex)
       console.log("first vowel index:", firstVowelIndex)
@@ -56,15 +57,27 @@ class App extends Component{
       //  let quSplit = currentWord.split(/(qu)/i)
       //  console.log("quArray:", quSplit)
       //  let quArr = []
-      
       //  quArr.push(quSplit.shift())
       //  quArr.push(quSplit.shift())
       //  console.log("splitArr:", quArr)
       //  console.log("concat:", quSplit.toString() + quArr.join("")+"ay")
       
       // Sistine Chapel (before restoration)
-      console.log("concat:", currentWord.substring(quIndex+2)+currentWord.substring(0,quIndex+2)+"ay")     
+      currentWord = currentWord.substring(quIndex+2)+currentWord.substring(0,quIndex+2)+"ay"    
+     } else if (yIndex !== 0 && yIndex > 0) {
+       currentWord = currentWord.substring(yIndex)+currentWord.substring(0,yIndex)+"ay"
+     } else if (firstVowelIndex === 0) {
+      currentWord = currentWord + "way"
+     } else {
+       currentWord = currentWord.substring(firstVowelIndex)+currentWord.substring(0,firstVowelIndex)+"ay"
      } 
+
+     let punctIndex = currentWord.search(/[.,:!?$%*#"';`@-]/)
+     console.log("punctIndex:", punctIndex)
+
+     if (punctIndex !== -1){
+       currentWord = currentWord.substring(0, punctIndex)+currentWord.substring(punctIndex + 1) + currentWord.substring(punctIndex, punctIndex+1)
+     }
         
       
       // Remember: console.log is your friend :)
