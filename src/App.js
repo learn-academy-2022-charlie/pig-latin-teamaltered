@@ -34,7 +34,39 @@ class App extends Component{
       console.log("vowelsArray:", vowelsArray)
 
       // your code here!
+      
+      //First find all the special cases
+      //Case1: qu - move all consonants + u to the back and add ay
+      //Case2: y - if y comes in the middle of the word or end of the word, its a vowel, if it comes first, its a consonant
+      //Case3: vowel 0 index
+      //Case4: anything else, find index of first vowel, move all prior consonants to back and add ay
+      
+      let yIndex = currentWord.search(/[y]/i)
+      let firstVowelIndex = currentWord.search(/[aeiou]/i)
+      //add 2 to qu index before using substring, because .search will return the index of the start of the pattern
+      let quIndex = currentWord.search(/qu/i)
 
+      console.log("y index:", yIndex)
+      console.log("first vowel index:", firstVowelIndex)
+      console.log("qu index:", quIndex)
+           
+     if(quIndex !== -1){
+      // First idea hella ugly
+
+      //  let quSplit = currentWord.split(/(qu)/i)
+      //  console.log("quArray:", quSplit)
+      //  let quArr = []
+      
+      //  quArr.push(quSplit.shift())
+      //  quArr.push(quSplit.shift())
+      //  console.log("splitArr:", quArr)
+      //  console.log("concat:", quSplit.toString() + quArr.join("")+"ay")
+      
+      // Sistine Chapel (before restoration)
+      console.log("concat:", currentWord.substring(quIndex+2)+currentWord.substring(0,quIndex+2)+"ay")     
+     } 
+        
+      
       // Remember: console.log is your friend :)
 
 
@@ -99,7 +131,7 @@ class App extends Component{
           <button onClick={this.restartGame}>Clear</button>
         </div>
         <p>{this.state.phraseTranslated}</p>
-        <footer>Coded by ~your name here~</footer>
+        <footer>Coded by ~Don and Collin~</footer>
       </>
     )
   }
