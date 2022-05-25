@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import butcherPig from './assets/butcherPig.jpeg'
 import farm from './assets/farm.jpg'
+import mud from './assets/mud.jpg'
 
 class App extends Component{
   constructor(props){
@@ -153,7 +154,7 @@ class App extends Component{
           className="butcherPig"
         />
         <div className="inputArea">
-          <h4>Enter phrase to be translated:</h4>
+          <h4 className="directions">Enter phrase to be translated:</h4>
           {/* user input field - every DOM event that happens in the input will call the handleChange method and update state */}
           <input 
             type="text"
