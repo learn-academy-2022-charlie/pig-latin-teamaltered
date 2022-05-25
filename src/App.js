@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
 import butcherPig from './assets/butcherPig.jpeg'
-import farm from './assets/farm.jpg'
-import mud from './assets/mud.jpg'
 
 class App extends Component{
   constructor(props){
@@ -11,7 +9,7 @@ class App extends Component{
     this.state = {
       // "phrase" is the text entered by the user - right now there are test words hard coded to make the process of testing your code faster and easier
       // ACTION ITEM: when you are ready for your full user experience, delete the test words so phrase is assigned an empty string
-      phrase: "alpha through yummy squeal queen fry",
+      phrase: "alpha through yummy squeal queen fry 2022",
       // "phraseTranslated" is what the user will see appear on the page as Pig Latin, it starts as the preset message and updates when your user clicks the "submit" button
       phraseTranslated: "This is where your translated sentence will appear."
     }
@@ -94,10 +92,11 @@ class App extends Component{
        currentWord = currentWord[0].toUpperCase() + currentWord.substring(1).toLowerCase()
      }
 
-     
+          
      let incorrectIndex = currentWord.search(/[^a-z][^.,:!?"';`]/i)
-     if(incorrectIndex !== -1) {
-      currentWord = "TRY-AGAIN"
+    
+     if (incorrectIndex !== -1) {
+      currentWord = "NOTVALID"
     }
 
 
