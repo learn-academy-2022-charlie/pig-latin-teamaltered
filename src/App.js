@@ -10,7 +10,7 @@ class App extends Component{
     this.state = {
       // "phrase" is the text entered by the user - right now there are test words hard coded to make the process of testing your code faster and easier
       // ACTION ITEM: when you are ready for your full user experience, delete the test words so phrase is assigned an empty string
-      phrase: "alpha through yummy squeal queen fry",
+      phrase: "Hello! Charlie 2022 Cohort",
       // "phraseTranslated" is what the user will see appear on the page as Pig Latin, it starts as the preset message and updates when your user clicks the "submit" button
       phraseTranslated: "This is where your translated sentence will appear."
     }
@@ -29,10 +29,10 @@ class App extends Component{
       // ACTION ITEM: use "currentWord" as a starting point for your code
       // console.log("currentWord:", currentWord)
 
-      let vowelsArray = currentWord.split("").filter(vowel => {
-        return vowel === "a" || vowel === "e" || vowel === "i" || vowel === "o" || vowel === "u"
-      })
-      console.log("vowelsArray:", vowelsArray)
+      // let vowelsArray = currentWord.split("").filter(vowel => {
+      //   return vowel === "a" || vowel === "e" || vowel === "i" || vowel === "o" || vowel === "u"
+      // })
+      // console.log("vowelsArray:", vowelsArray)
 
       // your code here!
       
@@ -61,6 +61,7 @@ class App extends Component{
       let yIndex = currentWord.search(/[y]/i)
       //Track the index of the first instance of any vowel
       let firstVowelIndex = currentWord.search(/[aeiou]/i)
+      
       //Track the index of the start of the qu pattern. We needed to add 2 to qu index before using substring, because .search will return the index of the start of the pattern
       let quIndex = currentWord.search(/qu/i)
             
@@ -71,31 +72,33 @@ class App extends Component{
        
        // We use the Number() on currentWord to force it into a number if possible. If it is a number, it will be converted, if not it will return NaN. Use isNan() to see if the string is a number, if it false, it is a number.
        let numCheck = Number(currentWord)
-
+      console.log(currentWord)
       console.log("y index:", yIndex)
       console.log("first vowel index:", firstVowelIndex)
       console.log("qu index:", quIndex)
       console.log("incorrect:", incorrectIndex)
+      
       
       if (isNaN(numCheck) === false){
         currentWord = numCheck.toString()
       } else if (incorrectIndex !== -1) {
         // This step checks for any non punctuation symbols and numbers and returns "NOTVALID"
           currentWord = "NOTVALID"
-      } else if (currentWord[0] === vowelsArray[0]) {
+      } else if (firstVowelIndex === 0) {
         // This conditional checks to see if a vowel appears first and simply concats "way"
         currentWord = currentWord + "way"
-      } else if(quIndex !== -1 && quIndex < firstVowelIndex){      
+      } else if (quIndex !== -1 && quIndex < firstVowelIndex){      
         // Check for special qu case 
-          currentWord = currentWord.substring(quIndex+2)+currentWord.substring(0,quIndex+2)+"ay"    
-      } else if (firstVowelIndex !== 0){
+          currentWord = currentWord.substring(quIndex+2) + currentWord.substring(0,quIndex+2)+"ay"    
+      } else if (yIndex !== 0 && yIndex > 0) {
+          if(firstVowelIndex === -1 || yIndex < firstVowelIndex){
+          // Keep track of where "y" is. Because if "y" appears first it is treated as a consonant and if it appears later on, it counts as a vowel. Using the index of where the "y" appears, we can use substring to manipulate our string.
+          currentWord = currentWord.substring(yIndex) + currentWord.substring(0, yIndex)+"ay"
+          }
+      } else if (firstVowelIndex !== 0 ){
         // Any other condition would mean that the vowel appears in the middle of the string with no other special conditions and the 
         currentWord = currentWord.substring(firstVowelIndex)+currentWord.substring(0,firstVowelIndex)+"ay"
-      } else if (yIndex !== 0 && yIndex > 0) {
-          // Keep track of where "y" is. Because if "y" appears first it is treated as a consonant and if it appears later on, it counts as a vowel. Using the index of where the "y" appears, we can use substring to manipulate our string.
-          currentWord = currentWord.substring(yIndex)+currentWord.substring(0,yIndex)+"ay"
-      } 
-
+      }
       // Once we have completed moving the parts around to create the pig latin patter, we check to see if there is punctuation.
       let punctIndex = currentWord.search(/[.,:!?"';`]/)
       // console.log("punctIndex:", punctIndex)
@@ -164,14 +167,15 @@ class App extends Component{
                 alt="pig with butcher cut names in pig latin"
                 className="butcherPig"
               />
-            </div>
-            <div className = "hide">
+                <div className = "hide">
               <img
                 src={ rules }
                 alt="pig latin rules"
                 className="rules"
               />
             </div>
+            </div>
+          
           </div>
         <div className="inputArea">
           <h4 className="directions">Enter phrase to be translated:</h4>
