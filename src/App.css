@@ -8,6 +8,36 @@ body {
   background-position: center;
 }
 
+.container {
+  display: flex;
+  
+}
+.butcherPig {
+  height: 10rems;
+}
+
+.rules {
+  height: 10rem;
+
+}
+
+.secret {
+  display: inline-block;
+  height: 14rem;
+  
+}
+
+.hide {
+  display: none;
+  
+}
+
+.secret:hover + .hide {
+  display: block;
+
+  
+}
+
 h1 {
   font-size: 3rem;
   animation: myAnim 2s ease 0s infinite normal forwards;
@@ -46,8 +76,9 @@ button {
   padding: 1rem;
 }
 
+
 footer {
-  padding: 4rem;
+  padding: 1rem;
   font-size: 2rem;
   color: white;
   font-weight: bold;
@@ -55,7 +86,7 @@ footer {
 
 .butcherPig {
   width: 12rem;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 3rem;
 }
 
